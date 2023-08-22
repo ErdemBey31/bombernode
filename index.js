@@ -38,15 +38,27 @@ bot.command("start", (ctx) => {
 });
 
 bot.action('ping', (ctx) => {
-    const start = performance.now();
-    const chatId = ctx.chat.id;
-    const messageId = ctx.message.message_id;
-    ctx.replyWithMarkdown("*Ping ölçülüyor...*")
-    const end = performance.now();
-    const pingTime = Math.round(end - start);
-    const alertText = `Ping değeri: ${pingTime}`;
-    ctx.answerCbQuery({ text: alertText, show_alert: true });
-    ctx.deleteMessage();
+    try {
+      const start = performance.now();
+      const chatId = ctx.chat.id;
+      const messageId = ctx.message.message_id;
+      ctx.replyWithMarkdown("*Ping ölçülüyor...*")
+      const end = performance.now();
+      const pingTime = Math.round(end - start);
+      const alertText = `Ping değeri: ${pingTime}`;
+      ctx.answerCbQuery({ text: alertText, show_alert: true });
+      ctx.deleteMessage();
+    } catch (error) {
+      const start = performance.now();
+      const chatId = ctx.chat.id;
+   //   const messageId = ctx.message.message_id;
+  //    ctx.replyWithMarkdown("*Ping ölçülüyor...*")
+      const end = performance.now();
+      const pingTime = Math.round(end - start);
+      const alertText = `Ping değeri: ${pingTime}`;
+      ctx.answerCbQuery({ text: alertText, show_alert: true });
+      //ctx.deleteMessage();
+    }
 });
 
 bot.command("bomb", (ctx, match) => {
