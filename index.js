@@ -91,7 +91,11 @@ bot.command("bomb", (ctx, match) => {
       }
     );
   } catch (error) {
-    ctx.replyWithHtml(`<b>HATA:</b>\n\n<code> ${error} </code>`);
+    try {
+      ctx.replyWithHTML(`<b>HATA:</b>\n\n<code> ${error} </code>`);
+    } catch (error) {
+      console.log(error)
+    }
   }
 });
 bot.launch();
