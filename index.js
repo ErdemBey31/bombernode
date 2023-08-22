@@ -89,7 +89,7 @@ bot.command("bomb", (ctx, match) => {
       console.log(error);
     }
   }
-    const response = await axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
+    const response = axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
     const responseData = response.data;
 
     console.log('Alınan metin:', responseData);
