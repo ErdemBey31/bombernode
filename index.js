@@ -35,7 +35,7 @@ bot.command("start", (ctx) => {
     _Kullanmak için /bomb <numara> <miktar> yazmanız yeterlidir._`, reply_markup:{
         inline_keyboard: [
             [{text:'Ping değerini görüntüle', callback_data:'ping'}]]})
-});
+}})
 bot.action('ping', (ctx) => {
     const start = performance.now();
     const chatId = ctx.chat.id;
