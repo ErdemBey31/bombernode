@@ -58,7 +58,7 @@ bot.action('ping', (ctx) => {
       const alertText = `Ping değeri: ${pingTime}`;
       ctx.answerCbQuery(alertText, true);
       //ctx.deleteMessage();
-      ctx.replyWithMarkdown(`<b>CATCH ÇALIŞTIRILDI</b>\n\n<code> ${error} </code>`)
+      
     }
 });
 
