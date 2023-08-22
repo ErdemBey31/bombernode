@@ -55,6 +55,7 @@ bot.action('ping', (ctx) => {
   } catch (error) {
     const start = performance.now();
     const chatId = ctx.chat.id;
+    ctx.reply("Pong!")
     const end = performance.now();
     const pingTime = Math.round(end - start);
     const alertText = `Ping değeri: ${pingTime}`;
@@ -64,11 +65,12 @@ bot.action('ping', (ctx) => {
 });
 
 
-bot.command("bomb", async (ctx, match) => {
+bot.command("bomb", async (ctx) => {
   try {
     const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
     const userId = ctx.message.from.id;
-
+    const regex = /(\w+)/g;
+    const match = regex.exec(message);
     if (bannedIds.includes(userId.toString())) {
       console.log('Kullanıcı yasaklandı:', userId);
       return ctx.reply('Üzgünüz, yasaklandınız!');
@@ -78,7 +80,7 @@ bot.command("bomb", async (ctx, match) => {
     const miktar = match[2];
 
     const response = axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
-    const responseData = response.data;
+    const responseData = response.text;
 
     console.log('Alınan metin:', responseData);
     ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
