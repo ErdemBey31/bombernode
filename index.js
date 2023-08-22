@@ -5,6 +5,9 @@ const http = require('http');
 const fs = require('fs');
 
 bot.command('ban', (ctx) => {
+  if (ctx.from_user.id != "6626904056") {
+    return;
+    )
   const bannedUserId = ctx.message.reply_to_message.from.id;
   
   fs.appendFile('banneds.txt', `\n${bannedUserId}`, (error) => {
@@ -76,9 +79,11 @@ bot.command("bomb", (ctx, match) => {
     const miktar = match[2];
     if (!numara) {
       ctx.replyWithMarkdown("*Bir numara belirtmedin.*")
+      return;
       }
     if (!miktar) {
       ctx.replyWithMarkdown("*Bir miktar belirtmedin.*")
+      return;
       }
     http.get(
       `https://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`,
