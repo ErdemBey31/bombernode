@@ -80,7 +80,7 @@ bot.command("bomb", async (ctx) => {
     const numara = match[1];
     const miktar = match[2];
 
-    const response = axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
+    const response = await axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
     const responseData = response.data;
 
  //   console.log('Alınan metin:', responseData);
