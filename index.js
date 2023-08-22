@@ -25,17 +25,23 @@ bot.command('ban', (ctx) => {
 
 
 bot.command("start", (ctx) => {
-    const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
-    if (bannedIds.includes(userId.toString())) {
-      console.log('Kullanıcı yasaklandı:', userId);
-      return ctx.reply('Üzgünüz, yasaklandınız!');
-      return;
-    ctx.replyWithMarkdown(`*Merhaba, sms bomber botuna hoşgeldin. *
-    
-    _Kullanmak için /bomb <numara> <miktar> yazmanız yeterlidir._`, reply_markup:{
-        inline_keyboard: [
-            [{text:'Ping değerini görüntüle', callback_data:'ping'}]]})
-}})
+  const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
+  const userId = ctx.message.from.id;
+
+  if (bannedIds.includes(userId.toString())) {
+    console.log('Kullanıcı yasaklandı:', userId);
+    return ctx.reply('Üzgünüz, yasaklandınız!');
+  }
+
+  ctx.replyWithMarkdown(`*Merhaba, SMS bomber botuna hoş geldin!*`
+    + `\n_Kullanmak için /bomb <numara> <miktar> yazmanız yeterlidir._`, {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: 'Ping değerini görüntüle', callback_data: 'ping' }]
+      ]
+    }
+  });
+});
 bot.action('ping', (ctx) => {
     const start = performance.now();
     const chatId = ctx.chat.id;
