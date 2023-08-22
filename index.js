@@ -77,14 +77,7 @@ bot.command("bomb", (ctx, match) => {
 
     const numara = match[1];
     const miktar = match[2];
-    if (!numara) {
-      ctx.replyWithMarkdown("*Bir numara belirtmedin.*")
-      return;
-      }
-    if (!miktar) {
-      ctx.replyWithMarkdown("*Bir miktar belirtmedin.*")
-      return;
-      }
+    
     http.get(
       `https://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`,
       (res) => {
