@@ -77,21 +77,30 @@ bot.command("bomb", (ctx, match) => {
     const numara = match[1];
     const miktar = match[2];
     
-    http.get(
-      `http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`,
-      (res) => {
-        let responseData = '';
+    const response = await axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
+    const responseData = response.data;
 
-        res.on('data', (chunk) => {
-          responseData += chunk;
-        });
+    console.log('Alınan metin:', responseData);
+    ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
+  } catch (error) {
+    try {
+      ctx.replyWithHTML(`<b>HATA:</b>\n\n<code>${error}</code>`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+    const response = await axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
+    const responseData = response.data;
 
-        res.on('end', () => {
-          console.log('Alınan metin:', responseData);
-          ctx.replyWithHTML(`<b>Sonuç:</b> <code> ${responseData} </code>`);
-        });
-      }
-    );
+    console.log('Alınan metin:', responseData);
+    ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
+  } catch (error) {
+    try {
+      ctx.replyWithHTML(`<b>HATA:</b>\n\n<code>${error}</code>`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   } catch (error) {
     try {
       ctx.replyWithHTML(`<b>HATA:</b>\n\n<code> ${error} </code>`);
