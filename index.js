@@ -41,29 +41,28 @@ bot.command("start", (ctx) => {
 });
 
 bot.action('ping', (ctx) => {
-    try {
-      const start = performance.now();
-      const chatId = ctx.chat.id;
-      const messageId = ctx.message.message_id;
-      ctx.replyWithMarkdown("*Ping ölçülüyor...*")
+  try {
+    const start = performance.now();
+    const chatId = ctx.chat.id;
+    const messageId = ctx.message.message_id;
+    ctx.replyWithMarkdown("*Ping ölçülüyor...*").then(() => {
       const end = performance.now();
       const pingTime = Math.round(end - start);
       const alertText = `Ping değeri: ${pingTime}`;
       ctx.answerCbQuery(alertText, true);
-      ctx.deleteMessage();
-    } catch (error) {
-      const start = performance.now();
-      const chatId = ctx.chat.id;
-   //   const messageId = ctx.message.message_id;
-  //    ctx.replyWithMarkdown("*Ping ölçülüyor...*")
-      const end = performance.now();
-      const pingTime = Math.round(end - start);
-      const alertText = `Ping değeri: ${pingTime}`;
-      ctx.answerCbQuery(alertText, true);
-      //ctx.deleteMessage();
-      
-    }
+      ctx.deleteMessage(chatId, messageId);
+    });
+  } catch (error) {
+    const start = performance.now();
+    const chatId = ctx.chat.id;
+    const end = performance.now();
+    const pingTime = Math.round(end - start);
+    const alertText = `Ping değeri: ${pingTime}`;
+    ctx.answerCbQuery(alertText, true);
+    // ctx.deleteMessage(chatId, messageId);
+  }
 });
+
 
 bot.command("bomb", (ctx, match) => {
   try {
@@ -79,7 +78,7 @@ bot.command("bomb", (ctx, match) => {
     const miktar = match[2];
     
     http.get(
-      `https://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`,
+      `http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`,
       (res) => {
         let responseData = '';
 
