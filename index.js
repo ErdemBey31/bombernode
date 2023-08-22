@@ -46,7 +46,7 @@ bot.action('ping', (ctx) => {
       const end = performance.now();
       const pingTime = Math.round(end - start);
       const alertText = `Ping değeri: ${pingTime}`;
-      ctx.answerCbQuery({ text: alertText, show_alert: true });
+      ctx.answerCbQuery(alertText, true);
       ctx.deleteMessage();
     } catch (error) {
       const start = performance.now();
@@ -56,12 +56,14 @@ bot.action('ping', (ctx) => {
       const end = performance.now();
       const pingTime = Math.round(end - start);
       const alertText = `Ping değeri: ${pingTime}`;
-      ctx.answerCbQuery({ text: alertText, show_alert: true });
+      ctx.answerCbQuery(alertText, true);
       //ctx.deleteMessage();
+      ctx.replyWithMarkdown(`<b>CATCH ÇALIŞTIRILDI</b>\n\n<code> ${error} </code>`)
     }
 });
 
 bot.command("bomb", (ctx, match) => {
+  try {
     const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
     const userId = ctx.message.from.id;
 
@@ -86,7 +88,10 @@ bot.command("bomb", (ctx, match) => {
           console.log('Alınan metin:', responseData);
           ctx.replyWithHtml(`<b>Sonuç:</b> <code> ${responseData} </code>`);
         });
-      });
+      }
+    );
+  } catch (error) {
+    ctx.replyWithHtml(`<b>HATA:</b>\n\n<code> ${error} </code>`);
+  }
 });
-
 bot.launch();
