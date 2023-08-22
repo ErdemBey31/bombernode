@@ -88,7 +88,7 @@ bot.command("bomb", (ctx, match) => {
 
         res.on('end', () => {
           console.log('Alınan metin:', responseData);
-          ctx.replyWithHtml(`<b>Sonuç:</b> <code> ${responseData} </code>`);
+          ctx.replyWithHTML(`<b>Sonuç:</b> <code> ${responseData} </code>`);
         });
       }
     );
