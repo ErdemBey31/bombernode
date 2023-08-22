@@ -61,8 +61,8 @@ bot.command("bomb", (ctx, match) => {
       console.log('Kullanıcı yasaklandı:', userId);
       return ctx.reply('Üzgünüz, yasaklandınız!');
       return;
-    const numara = match[1:]
-    const miktar = match[2:]
+    const numara = match[1]
+    const miktar = match[2]
     http.get(`https://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar.toString()}`, (res) => {
         let responseData = '';
 
