@@ -83,11 +83,9 @@ bot.command("bomb", async (ctx, match) => {
     console.log('Alınan metin:', responseData);
     ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
   } catch (error) {
-    try {
+    
       ctx.replyWithHTML(`<b>HATA:</b>\n\n<code>${error}</code>`);
-    } catch (error) {
-      console.log(error);
-    }
+    
   }
 });
 bot.launch();
