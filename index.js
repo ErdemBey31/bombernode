@@ -69,6 +69,7 @@ bot.command("bomb", async (ctx) => {
   try {
     const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
     const userId = ctx.message.from.id;
+    const message = ctx.message.text;
     const regex = /(\w+)/g;
     const match = regex.exec(message);
     if (bannedIds.includes(userId.toString())) {
