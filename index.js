@@ -59,6 +59,10 @@ bot.action('ping', (ctx) => {
       ctx.telegram.deleteMessage(chatId, sentMessage.message_id);
       ctx.replyWithMarkdown(`*Ping değeri: ${pingTime}*`, { reply_to_message_id: messageId });
       ctx.answerCbQuery(alertText, true);
+      if (pingTime >= "300") {
+        ctx.replyWithMarkdown("*⚠️ Yüksek ping.*")
+        return
+      
     });
   } catch (error) {
     ctx.reply('Ping hatası:', error);
