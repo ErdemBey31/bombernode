@@ -38,7 +38,7 @@ bot.command("start", (ctx) => {
     reply_markup: {
       inline_keyboard: [
         [{ text: 'Ping değerini görüntüle', callback_data: 'ping' }],
-        [{text:'Bilgi', callback_data='bilgi'}]
+        [{text:'Bilgi', callback_data:'bilgi'}]
       ]
     }
   });
