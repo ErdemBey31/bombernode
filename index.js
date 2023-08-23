@@ -1,15 +1,17 @@
+
 const { Telegraf } = require('telegraf');
 const { performance } = require('perf_hooks');
 const bot = new Telegraf('6357522659:AAFUp0jzOcLBNiNBPGON-SO6srVMC_dqpkw');
-const http = require('http');
 const fs = require('fs');
-const axios = require('axios')
+const axios = require('axios');
+
 bot.command('ban', (ctx) => {
-  if (ctx.from_user.id != "6626904056") {
+  if (ctx.from.id !== 6626904056) {
     return;
-    }
+  }
+
   const bannedUserId = ctx.message.reply_to_message.from.id;
-  
+
   fs.appendFile('banneds.txt', `\n${bannedUserId}`, (error) => {
     if (error) {
       console.error('Yasaklama işlemi başarısız oldu:', error);
@@ -44,26 +46,19 @@ bot.action('ping', (ctx) => {
   try {
     const start = performance.now();
     const chatId = ctx.chat.id;
-    const messageId = ctx.message.message_id;
-    ctx.replyWithMarkdown("*Ping ölçülüyor...*").then(() => {
+    const messageId = ctx.update.callback_query.message.message_id;
+    ctx.replyWithMarkdown("*Ping ölçülüyor...*").then((sentMessage) => {
       const end = performance.now();
       const pingTime = Math.round(end - start);
       const alertText = `Ping değeri: ${pingTime}`;
+
+      ctx.telegram.editMessageText(chatId, sentMessage.message_id, null, alertText);
       ctx.answerCbQuery(alertText, true);
-      ctx.deleteMessage(chatId, messageId);
     });
   } catch (error) {
-    const start = performance.now();
-    const chatId = ctx.chat.id;
-    ctx.reply("Pong!")
-    const end = performance.now();
-    const pingTime = Math.round(end - start);
-    const alertText = `Ping değeri: ${pingTime}`;
-    ctx.answerCbQuery(alertText, true);
-    // ctx.deleteMessage(chatId, messageId);
+    console.error('Ping hatası:', error);
   }
 });
-
 
 bot.command("bomb", async (ctx) => {
   try {
@@ -71,24 +66,30 @@ bot.command("bomb", async (ctx) => {
     const userId = ctx.message.from.id;
     const message = ctx.message.text;
     const regex = /(\w+)/g;
-    const match = regex.exec(message);
+    const matches = message.match(regex);
+
     if (bannedIds.includes(userId.toString())) {
       console.log('Kullanıcı yasaklandı:', userId);
       return ctx.reply('Üzgünüz, yasaklandınız!');
     }
 
-    const numara = match[1];
-    const miktar = match[2];
+    const numara = matches[1];
+    const miktar = matches[2];
 
     const response = await axios.get(`http://oslocheck.com.tr/api/smsbomber?key=ggsahip&numara=${numara}&miktar=${miktar}`);
     const responseData = response.data;
 
- //   console.log('Alınan metin:', responseData);
-    ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
+    if (responseData) {
+      console.log('Alınan metin:', responseData);
+      ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
+    } else {
+      console.log('Geçersiz yanıt:', response);
+      ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
+    }
   } catch (error) {
-    
-      ctx.replyWithHTML(`<b>HATA:</b>\n\n<code>${error}</code>`);
-    
+    console.error('Bomb hatası:', error);
+    ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
   }
 });
+
 bot.launch();
