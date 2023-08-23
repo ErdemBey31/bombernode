@@ -62,7 +62,7 @@ bot.action('ping', (ctx) => {
       if (pingTime >= "300") {
         ctx.replyWithMarkdown("*⚠️ Yüksek ping.*")
         return
-      
+      }
     });
   } catch (error) {
     ctx.reply('Ping hatası:', error);
