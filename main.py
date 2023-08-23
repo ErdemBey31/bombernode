@@ -3,7 +3,7 @@ import telebot
 import logging
 import os
 import requests
-
+import time
 TOKEN = '6357522659:AAFUp0jzOcLBNiNBPGON-SO6srVMC_dqpkw'
 
 bot = telebot.TeleBot(TOKEN)
