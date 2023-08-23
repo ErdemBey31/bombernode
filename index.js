@@ -87,11 +87,11 @@ bot.command("bomb", async (ctx) => {
       ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
     } else {
       console.log('Geçersiz yanıt:', response);
-      ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.', error);
+      ctx.reply(`Bir hata oluştu, lütfen tekrar deneyin. ${error}`);
     }
   } catch (error) {
     console.error('Bomb hatası:', error);
-    ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.', error);
+    ctx.reply(`Bir hata oluştu, lütfen tekrar deneyin. ${error}`);
   }
 });
 
