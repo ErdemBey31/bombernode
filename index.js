@@ -58,9 +58,10 @@ bot.action('ping', (ctx) => {
       ctx.answerCbQuery(alertText, true);
     });
   } catch (error) {
-    console.error('Ping hatası:', error);
+    ctx.reply('Ping hatası:', error);
   }
 });
+
 
 bot.command("bomb", async (ctx) => {
   try {
@@ -75,6 +76,11 @@ bot.command("bomb", async (ctx) => {
       return ctx.reply('Üzgünüz, yasaklandınız!');
     }
 
+    if (matches.length < 3) {
+      // Eksik parametreler olduğunda hata mesajı gönder
+      return ctx.reply('Eksik parametreler! Doğru format: /bomb <numara> <miktar>');
+    }
+
     const numara = matches[1];
     const miktar = matches[2];
 
@@ -87,11 +93,11 @@ bot.command("bomb", async (ctx) => {
       ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
     } else {
       console.log('Geçersiz yanıt:', response);
-      ctx.reply(`Bir hata oluştu, lütfen tekrar deneyin. ${error}`);
+      ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
     }
   } catch (error) {
     console.error('Bomb hatası:', error);
-    ctx.reply(`Bir hata oluştu, lütfen tekrar deneyin. ${error}`);
+    ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
   }
 });
 
