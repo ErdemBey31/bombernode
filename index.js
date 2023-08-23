@@ -1,9 +1,10 @@
 
 const { Telegraf } = require('telegraf');
 const { performance } = require('perf_hooks');
-const bot = new Telegraf('6357522659:AAFUp0jzOcLBNiNBPGON-SO6srVMC_dqpkw');
 const fs = require('fs');
 const axios = require('axios');
+
+const bot = new Telegraf('6357522659:AAFUp0jzOcLBNiNBPGON-SO6srVMC_dqpkw');
 
 bot.command('ban', (ctx) => {
   if (ctx.from.id !== 6626904056) {
@@ -52,7 +53,8 @@ bot.action('ping', (ctx) => {
       const pingTime = Math.round(end - start);
       const alertText = `Ping değeri: ${pingTime}`;
 
-      ctx.telegram.editMessageText(chatId, sentMessage.message_id, null, alertText);
+      ctx.telegram.deleteMessage(chatId, sentMessage.message_id);
+      ctx.replyWithMarkdown(`*Ping değeri: ${pingTime}*`, { reply_to_message_id: messageId });
       ctx.answerCbQuery(alertText, true);
     });
   } catch (error) {
@@ -80,8 +82,9 @@ bot.command("bomb", async (ctx) => {
     const responseData = response.data;
 
     if (responseData) {
-      console.log('Alınan metin:', responseData);
-      ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseData}</code>`);
+      console.log('Alınan yanıt:', responseData);
+      const responseString = JSON.stringify(responseData);
+      ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
     } else {
       console.log('Geçersiz yanıt:', response);
       ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
