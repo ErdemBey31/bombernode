@@ -37,12 +37,15 @@ bot.command("start", (ctx) => {
     + `\n_Kullanmak için /bomb <numara> <miktar> yazmanız yeterlidir._`, {
     reply_markup: {
       inline_keyboard: [
-        [{ text: 'Ping değerini görüntüle', callback_data: 'ping' }]
+        [{ text: 'Ping değerini görüntüle', callback_data: 'ping' }],
+        [{text:'Bilgi', callback_data='bilgi'}]
       ]
     }
   });
 });
-
+bot.action('bilgi', (ctx) => {
+  ctx.replyWithMarkdown("*Bu bot @erd3mbey tarafından baştan kodlanmıştır*")
+})
 bot.action('ping', (ctx) => {
   try {
     const start = performance.now();
