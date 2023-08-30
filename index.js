@@ -3,10 +3,8 @@ const { Telegraf } = require('telegraf');
 const { performance } = require('perf_hooks');
 const fs = require('fs');
 const axios = require('axios');
-const express = require('express')
-const app = express()
-const port = 3000
-const bot = new Telegraf('6594577310:AAEtjfrxW3qAjF4k-RWXWd-Kl7l5Qk9okBA');
+
+const bot = new Telegraf('6547641979:AAG3UkDWlsFC-Zcc761NcB5cVq1vsVEaXZo');
 
 bot.command('ban', (ctx) => {
   if (ctx.from.id !== 6626904056) {
@@ -109,11 +107,5 @@ bot.command("bomb", async (ctx) => {
     ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
   }
 });
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
 bot.launch();
