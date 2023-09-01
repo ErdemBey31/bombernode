@@ -44,7 +44,7 @@ bot.command("start", (ctx) => {
   });
 });
 bot.action('bilgi', (ctx) => {
-  ctx.replyWithMarkdown("*Bu bot @erd3mbey tarafından baştan kodlanmıştır*")
+  ctx.replyWithMarkdown("*Bilgi yok!*")
 })
 bot.action('ping', (ctx) => {
   try {
@@ -97,14 +97,21 @@ bot.command("bomb", async (ctx) => {
     if (responseData) {
       console.log('Alınan yanıt:', responseData);
       const responseString = JSON.stringify(responseData);
-      ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
+      try {
+        ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString.message}</code>`);
+        ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
+      } catch (error) {
+        ctx.replyWithHTML(`<code> ${error} </code>`)
+        ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
+                              }
+
     } else {
       console.log('Geçersiz yanıt:', response);
-      ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
+      ctx.reply(`*Bir hata oluştu, lütfen tekrar deneyin.*\n\n${response}`);
     }
   } catch (error) {
     console.error('Bomb hatası:', error);
-    ctx.reply('Bir hata oluştu, lütfen tekrar deneyin.');
+    ctx.reply(`*Bir hata oluştu, lütfen tekrar deneyin.*\n\n${error}`);
   }
 });
 
