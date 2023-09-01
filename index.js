@@ -63,6 +63,10 @@ bot.action('ping', (ctx) => {
         ctx.replyWithMarkdown("*⚠️ Yüksek ping.*")
         return
       }
+      if (pingTime >= "450") {
+        ctx.replyWithMarkdown("*⚠️ Sunucu çökse daha hızlı çalışırdı.*)
+        return
+    }
     });
   } catch (error) {
     ctx.reply('Ping hatası:', error);
