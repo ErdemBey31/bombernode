@@ -129,8 +129,10 @@ bot.command("bomb", async (ctx) => {
     if (responseData) {
       console.log('Alınan yanıt:', responseData);
       const responseString = JSON.stringify(responseData);
+      const responseS JSON.parse(responseString)
       try {
-        ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString.message}</code>`);
+        
+        ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseS.message}</code>`);
         ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
       } catch (error) {
         ctx.replyWithHTML(`<code> ${error} </code>`)
