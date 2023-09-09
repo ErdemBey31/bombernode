@@ -65,7 +65,7 @@ bot.action('ping', (ctx) => {
         return
       }
       if (pingTime >= "450") {
-        ctx.replyWithMarkdown("*⚠️ Sunucu çökse daha hızlı çalışırdı.*)
+        ctx.replyWithMarkdown("*⚠️ Sunucu çökse daha hızlı çalışırdı.*")
         return
     }
     });
