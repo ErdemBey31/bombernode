@@ -3,12 +3,10 @@ const { Telegraf } = require('telegraf');
 const { performance } = require('perf_hooks');
 const fs = require('fs');
 const axios = require('axios');
-
-const bot = new Telegraf('6401340062:AAGmH-vPvSoIr30vSwVwZctGAqbVBNyW4FI');
+const bot = new Telegraf('6547641979:AAFVQE3VcFcUg-VyNzEhXvg3SbgnDtSLOcw');
 
 bot.command('ban', (ctx) => {
-  if (ctx.from.id !== 6626904056) {
-    ctx.replyWithMarkdown("*Siktir git piç.*")
+  if (ctx.from.id !== 6691596766) {
     return;
   }
 
@@ -24,7 +22,6 @@ bot.command('ban', (ctx) => {
     }
   });
 });
-
 bot.command("start", (ctx) => {
   const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
   const userId = ctx.message.from.id;
@@ -45,7 +42,33 @@ bot.command("start", (ctx) => {
   });
 });
 bot.action('bilgi', (ctx) => {
-  ctx.replyWithMarkdown("*Bilgi yok!*")
+  //ctx.deleteMessage()
+  ctx.editMessageText("*Bilgi yok!*", {
+      parse_mode: "Markdown",
+      reply_markup:{
+          inline_keyboard:[
+              [{text:'Geri 🔙', callback_data:`start`}]]}
+  })
+})
+bot.action('start', (ctx) => {
+  const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
+  const userId = ctx.from.id;
+
+  if (bannedIds.includes(userId.toString())) {
+    console.log('Kullanıcı yasaklandı:', userId);
+    return ctx.editMessageText('Üzgünüz, yasaklandınız!');
+  }
+
+  ctx.editMessageText(`*Merhaba, SMS bomber botuna hoş geldin!*`
+    + `\n_Kullanmak için /bomb <numara> <miktar> yazmanız yeterlidir._`, {
+    parse_mode: "Markdown",
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: 'Ping değerini görüntüle', callback_data: 'ping' }],
+        [{text:'Bilgi', callback_data:'bilgi'}]
+      ]
+    }
+  });
 })
 bot.action('ping', (ctx) => {
   try {
@@ -58,7 +81,11 @@ bot.action('ping', (ctx) => {
       const alertText = `Ping değeri: ${pingTime}`;
 
       ctx.telegram.deleteMessage(chatId, sentMessage.message_id);
-      ctx.replyWithMarkdown(`*Ping değeri: ${pingTime}*`, { reply_to_message_id: messageId });
+      ctx.editMessageText(`*Ping değeri: ${pingTime}*`, {
+          parse_mode: "Markdown", 
+          reply_markup:{
+              inline_keyboard:
+                  [[{text:'Geri 🔙', callback_data:`start`}]]}, });
       ctx.answerCbQuery(alertText, true);
       if (pingTime >= "300") {
         ctx.replyWithMarkdown("*⚠️ Yüksek ping.*")
