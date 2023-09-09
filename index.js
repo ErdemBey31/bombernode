@@ -4,7 +4,7 @@ const { performance } = require('perf_hooks');
 const fs = require('fs');
 const axios = require('axios');
 
-const bot = new Telegraf('6612217929:AAFQ1beAzLiSgCr5hbQXdZv9Fg7LrhPk09o');
+const bot = new Telegraf('6401340062:AAGmH-vPvSoIr30vSwVwZctGAqbVBNyW4FI');
 
 bot.command('ban', (ctx) => {
   if (ctx.from.id !== 6626904056) {
