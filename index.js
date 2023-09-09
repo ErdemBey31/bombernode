@@ -6,7 +6,7 @@ const axios = require('axios');
 const bot = new Telegraf('6401340062:AAFY7ixDxu7B34-cMlawW_QI4WZrGp4LqAA');
 
 bot.command('ban', (ctx) => {
-  if (ctx.from.id !== 6691596766) {
+  if (ctx.from.id != 6691596766) {
     return;
   }
 
@@ -30,7 +30,7 @@ bot.command("start", (ctx) => {
     console.log('Kullanıcı yasaklandı:', userId);
     return ctx.reply('Üzgünüz, yasaklandınız!');
   }
-
+  ctx.replyWithMarkdown("*Not:* _Bir kişiye çok spam yaparsanız veya bota zarar verecek şekilde kullanırsanız banlanırsınız!_")
   ctx.replyWithMarkdown(`*Merhaba, SMS bomber botuna hoş geldin!*`
     + `\n_Kullanmak için /bomb <numara> <miktar> yazmanız yeterlidir._`, {
     reply_markup: {
