@@ -23,6 +23,7 @@ bot.command('ban', (ctx) => {
   });
 });
 bot.command("start", (ctx) => {
+  bot.telegram.sendMessage(, `NEW USER: ${ctx.from.first_name}`)
   const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
   const userId = ctx.message.from.id;
 
@@ -133,7 +134,6 @@ bot.command("bomb", async (ctx) => {
       try {
         
         ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseS.message}</code>`);
-        ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
       } catch (error) {
         ctx.replyWithHTML(`<code> ${error} </code>`)
         ctx.replyWithHTML(`<b>Sonuç:</b> <code>${responseString}</code>`);
