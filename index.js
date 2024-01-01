@@ -3,10 +3,10 @@ const { Telegraf } = require('telegraf');
 const { performance } = require('perf_hooks');
 const fs = require('fs');
 const axios = require('axios');
-const bot = new Telegraf('6401340062:AAFY7ixDxu7B34-cMlawW_QI4WZrGp4LqAA');
+const bot = new Telegraf('6589885600:AAFBonTGj-HupUlG6Ot3SCPEwq4wPDYJdL8');
 
 bot.command('ban', (ctx) => {
-  if (ctx.from.id != 6691596766) {
+  if (ctx.from.id != 6922649964) {
     return;
   }
 
@@ -23,7 +23,7 @@ bot.command('ban', (ctx) => {
   });
 });
 bot.command("start", (ctx) => {
-  bot.telegram.sendMessage(, `NEW USER: ${ctx.from.first_name}`)
+  bot.telegram.sendMessage(6922649964, `NEW USER: ${ctx.from.first_name}`)
   const bannedIds = fs.readFileSync('banneds.txt', 'utf-8').split('\n');
   const userId = ctx.message.from.id;
 
@@ -93,7 +93,7 @@ bot.action('ping', (ctx) => {
         return
       }
       if (pingTime >= "450") {
-        ctx.replyWithMarkdown("*⚠️ Sunucu çökse daha hızlı çalışırdı.*")
+        ctx.replyWithMarkdown("*⚠️ Sunucu çökse daha hızlı çalışırdı:(*")
         return
     }
     });
